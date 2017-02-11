@@ -81,6 +81,10 @@ def intrinsic_discrepancy(x,y):
 columns = ["age", "sex", "cp", "restbp", "chol", "fbs", "restecg", 
            "thalach", "exang", "oldpeak", "slope", "ca", "thal", "num"]
 df0     = pd.read_table("heart_disease_all14.csv", sep=',', header=None, names=columns)
+print("###########################################################")
+print df0.head()
+
+
 
 # Make some plots to check the data
 fig, axes = plt.subplots( nrows=10, ncols=3, figsize=(15,40) )
@@ -477,7 +481,7 @@ import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn import metrics
-import pickle
+#import pickle
 
 lasso = False
 
@@ -500,8 +504,8 @@ print(model)
 
 lrfit = model.fit(Xall,yall)
 
-with open('logistic.pickle', 'wb') as f
-	pickle.dump(model, f)
+#with open('logistic.pickle', 'wb') as f:
+#	pickle.dump(model, f)
 
 print('\nLogisticRegression score on full data set: %f\n' % lrfit.score(Xall,yall))
 ypred = model.predict(Xall)
@@ -936,9 +940,9 @@ dfp2c_true   = list(dfp2c.hd)
 dfp3c_true   = list(dfp3c.hd)
 
 # For each training set, find the optimal set of features.
-result1,sel1 = select_features(dfp1,verbose=0,method="bfgs")
-result2,sel2 = select_features(dfp2,verbose=0,method="bfgs")
-result3,sel3 = select_features(dfp3,verbose=0,method="bfgs")
+result1, sel1 = select_features(dfp1,verbose=0,method="bfgs")
+result2, sel2 = select_features(dfp2,verbose=0,method="bfgs")
+result3, sel3 = select_features(dfp3,verbose=0,method="bfgs")
 
 print('Partition 1 features: %s' %[feature_names[ind] for ind in sel1])
 print('Partition 2 features: %s' %[feature_names[ind] for ind in sel2])
@@ -953,13 +957,27 @@ dfp1c     = dfp1c.drop(dfp1c.columns[drop1],axis=1)
 dfp2c     = dfp2c.drop(dfp2c.columns[drop2],axis=1)
 dfp3c     = dfp3c.drop(dfp3c.columns[drop3],axis=1)
 
+print dfp1c.head()
+
 # Intercept is not part of the original dataframes, so it needs to be added explicitly if selected.
 if 19 in sel1: dfp1c["intercept"] = 1.0
 if 19 in sel2: dfp2c["intercept"] = 1.0
 if 19 in sel3: dfp3c["intercept"] = 1.0
+
+
+
     
 # Compute the predictions for the test data sets.
+
 hd1_pred  = result1.predict(dfp1c,linear=False)
+file = open("output.txt", "w")
+file.write("0")
+file.close()
+
+
+
+print hd1_pred
+
 hd2_pred  = result2.predict(dfp2c,linear=False)
 hd3_pred  = result3.predict(dfp3c,linear=False)
 
@@ -973,7 +991,7 @@ yy = range(nparts)
 yn = range(nparts)
 nn = range(nparts)
 ny = range(nparts)
-for ind,hd_all in enumerate([hd1_all,hd2_all,hd3_all]):
+for ind,hd_all in enumerate([hd1_all]):
     yy[ind] = sum([1 for [tr,pr] in hd_all if tr==1 and pr>=0.5])
     yn[ind] = sum([1 for [tr,pr] in hd_all if tr==1 and pr<0.5])
     nn[ind] = sum([1 for [tr,pr] in hd_all if tr==0 and pr<0.5])

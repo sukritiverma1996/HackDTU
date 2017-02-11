@@ -970,7 +970,7 @@ if 19 in sel3: dfp3c["intercept"] = 1.0
 # Compute the predictions for the test data sets.
 
 hd1_pred  = result1.predict(dfp1c,linear=False)
-file = open("output.txt", "w")
+file = open("High_Risk_Classify.txt", "w")
 file.write("0")
 file.close()
 
