@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body, html {
+  height: 100%;
+  margin: 0;
+  font: 400 15px/1.8 "Lato", sans-serif;
+  color: #777;
+}
+
+.bgimg-1, .bgimg-2, .bgimg-3 {
+  position: relative;
+  opacity: 0.65;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+.bgimg-1 {
+  background-image: url("healthyheart.jpg");
+  min-height: 100%;
+}
+
+.bgimg-2 {
+  background-image: url("healthyheart.jpg");
+  min-height: 400px;
+}
+
+.bgimg-3 {
+  background-image: url("healthyheart.jpg");
+  min-height: 400px;
+}
+
+.caption {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  color: #000;
+}
+
+.caption span.border {
+  background-color: #111;
+  color: #fff;
+  padding: 18px;
+  font-size: 25px;
+  letter-spacing: 10px;
+}
+
+h3 {
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  font: 20px "Lato", sans-serif;
+  color: #111;
+}
+
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1024px) {
+    .bgimg-1, .bgimg-2, .bgimg-3 {
+        background-attachment: scroll;
+    }
+}
+label {
+width:300px;
+float:left;
+}
+</style>
+</head>
+<body>
+
+<div class="bgimg-1">
+  <div class="caption">
+    <span class="border">Patient Information</span>
+  </div>
+</div>
+
+<div style="color: #777;background-color:white;text-align:center;padding:50px 80px;text-align: justify;">
+  
+  <form>
+  <label>Age:</label>
+  <input type="text" name="age">
+  <br>
+  <label>Sex:</label>
+  <select name="Sex">
+  <option value="1">Male</option>
+  <option value="0">Female</option>
+</select>
+  <br>
+<label>Chest Pain Type:</label>
+<select name="Cp">
+  <option value="1">Typical Angina</option>
+  <option value="2">Atypical Angina</option>
+  <option value="3">Non-Anginal pain</option>
+  <option value="4">Asymptomatic</option>
+</select><br>
+<label>Resting Blood Pressure (in mm hg):</label>
+<input type="text" name="trestbps">
+  <br>
+<label>Cholestrol (in mg/dl):</label>
+<input type="text" name="chol">
+  <br>
+ <label>Fasting Blood Sugar > 120 mg/dl:</label> <select name="fbs">
+  <option value="1">Yes</option>
+  <option value="0">No</option>
+</select>
+<br>
+<label>Resting Electrocardiographic Results:</label>
+<select name="restecg">
+  <option value="0">Normal</option>
+  <option value="1">Having ST-T wave abnormality</option>
+  <option value="2">Showing probable or definite left ventricular hypertrophy</option>
+</select><br>
+<label>Maximum HeartRate:</label>
+<input type="text" name="thalach">
+  <br>
+<label>Exercise Induced Angina:</label><select name="exang">
+  <option value="1">Yes</option>
+  <option value="0">No</option>
+</select>
+<br>
+<label>ST depression:</label>
+<input type="text" name="oldpeak">
+  <br>
+<label>Slope of the Peak exercise ST segment:</label><select name="slope">
+  <option value="1">Upsloping</option>
+  <option value="2">Flat</option>
+  <option value="3">Downsloping</option>
+</select><br>
+<label>Number of Major vessels (0-3):</label>
+<input type="text" name="ca">
+  <br>
+<label>Defect:</label>
+<select name="thal">
+  <option value="3">Normal</option>
+  <option value="6">Fixed defect</option>
+  <option value="7">Reversible defect</option>
+</select><br>
+<label>Diagnosis of heart disease:</label>
+<select name="num">
+  <option value="0">less than 50% diameter narrowing</option>
+  <option value="1">greater than 50% diameter narrowing</option>
+</select><br>
+  <input type="submit" value="Submit">
+</form> 
+
+</div>
+
+<div class="bgimg-2">
+  <div class="caption">
+    <span class="border" style="background-color:transparent;font-size:25px;color: #f7f7f7;">LESS HEIGHT</span>
+  </div>
+</div>
+
+
+</body>
+</html>
