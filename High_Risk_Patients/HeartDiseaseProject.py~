@@ -970,7 +970,7 @@ if 19 in sel3: dfp3c["intercept"] = 1.0
 # Compute the predictions for the test data sets.
 
 hd1_pred  = result1.predict(dfp1c,linear=False)
-file = open("High_Risk_Classify.txt", "w")
+file = open("/home/sukriti/Downloads/High_Risk_Classify.txt", "w")
 file.write("0")
 file.close()
 
@@ -1024,16 +1024,16 @@ rl2_err  = np.std(rl2,ddof=1)/np.sqrt(nparts)
 
 # Print out results
 print(' ')
-print('Accuracy:                [%5.3f, %5.3f, %5.3f]; average= %5.3f +/- %5.3f' 
-      %(acc[0],acc[1],acc[2],acc_mean,acc_err))
-print('Precision on disease:    [%5.3f, %5.3f, %5.3f]; average= %5.3f +/- %5.3f' 
-      %(pr1[0],pr1[1],pr1[2],pr1_mean,pr1_err))
-print('Precision on no-disease: [%5.3f, %5.3f, %5.3f]; average= %5.3f +/- %5.3f' 
-      %(pr2[0],pr2[1],pr2[2],pr2_mean,pr2_err))
-print('Recall on disease:       [%5.3f, %5.3f, %5.3f]; average= %5.3f +/- %5.3f' 
-      %(rl1[0],rl1[1],rl1[2],rl1_mean,rl1_err))
-print('Recall on no-disease:    [%5.3f, %5.3f, %5.3f]; average= %5.3f +/- %5.3f' 
-      %(rl2[0],rl2[1],rl2[2],rl2_mean,rl2_err))
+print('Accuracy:                [%5.3f]'
+      %(acc[0]))
+print('Precision on disease:    [%5.3f]' 
+      %(pr1[0]))
+print('Precision on no-disease: [%5.3f]' 
+      %(pr2[0]))
+print('Recall on disease:       [%5.3f]' 
+      %(rl1[0]))
+print('Recall on no-disease:    [%5.3f]' 
+      %(rl2[0]))
 
 
 # ### Gaussian Naive Bayes

@@ -288,8 +288,7 @@ new_columns_1 = ["age", "sex", "restbp", "chol", "fbs", "thalach",
                  "thal_6", "thal_7"]
 
 print '\nNumber of patients in dataframe: %i, with disease: %i, without disease: %i\n'       % (len(df.index),len(df[df.hd==1].index),len(df[df.hd==0].index))
-print df.head()
-print df.describe()
+
 
 # Standardize the dataframe
 stdcols = ["age","restbp","chol","thalach","oldpeak"]
@@ -301,6 +300,9 @@ stddf[nrmcols] = stddf[nrmcols].apply(lambda x: (x-x.mean())/(x.max()-x.min()))
 new_columns_2 = new_columns_1[:9] + new_columns_1[10:]
 new_columns_2.insert(0,new_columns_1[9])
 stddf = stddf.reindex(columns=new_columns_2)
+
+print("###########################################################")
+print stddf.head()
 
 # Convert dataframe into lists for use by classifiers
 yall = stddf["hd"]
@@ -957,27 +959,102 @@ dfp1c     = dfp1c.drop(dfp1c.columns[drop1],axis=1)
 dfp2c     = dfp2c.drop(dfp2c.columns[drop2],axis=1)
 dfp3c     = dfp3c.drop(dfp3c.columns[drop3],axis=1)
 
-print dfp1c.head()
 
 # Intercept is not part of the original dataframes, so it needs to be added explicitly if selected.
 if 19 in sel1: dfp1c["intercept"] = 1.0
 if 19 in sel2: dfp2c["intercept"] = 1.0
 if 19 in sel3: dfp3c["intercept"] = 1.0
 
+columns = ["age", "sex", "cp", "restbp", "chol", "fbs", "restecg", 
+           "thalach", "exang", "oldpeak", "slope", "ca", "thal", "num"]
+test_df  = pd.read_table("/home/sukriti/Downloads/Test_Data.csv", sep=',', header=None, names=columns)
+print test_df.head()
 
+frames = [test_df, df0]
 
+result = pd.concat(frames)
     
-# Compute the predictions for the test data sets.
+dfx      = result.copy()
+dummies = pd.get_dummies(dfx["cp"],prefix="cp")
+dfx      = dfx.join(dummies)
+del dfx["cp"]
+del dfx["cp_4.0"]
+dfx      = dfx.rename(columns = {"cp_1.0":"cp_1","cp_2.0":"cp_2","cp_3.0":"cp_3"})
 
-hd1_pred  = result1.predict(dfp1c,linear=False)
+dummies = pd.get_dummies(dfx["restecg"],prefix="recg")
+dfx      = dfx.join(dummies)
+del dfx["restecg"]
+del dfx["recg_0.0"]
+dfx      = dfx.rename(columns = {"recg_1.0":"recg_1","recg_2.0":"recg_2"})
+
+dummies = pd.get_dummies(dfx["slope"],prefix="slope")
+dfx      = dfx.join(dummies)
+del dfx["slope"]
+del dfx["slope_2.0"]
+dfx      = dfx.rename(columns = {"slope_1.0":"slope_1","slope_3.0":"slope_3"})
+
+dummies = pd.get_dummies(dfx["thal"],prefix="thal")
+dfx      = dfx.join(dummies)
+del dfx["thal"]
+del dfx["thal_3.0"]
+dfx      = dfx.rename(columns = {"thal_6.0":"thal_6","thal_7.0":"thal_7"})
+
+# Replace response variable values and rename
+dfx["num"].replace(to_replace=[1,2,3,4],value=1,inplace=True)
+dfx      = dfx.rename(columns = {"num":"hd"})
+
+# New list of column labels after the above operations
+new_columns_1 = ["age", "sex", "restbp", "chol", "fbs", "thalach", 
+                 "exang", "oldpeak", "ca", "hd", "cp_1", "cp_2",
+                 "cp_3", "recg_1", "recg_2", "slope_1", "slope_3",
+                 "thal_6", "thal_7"]
+
+# Standardize the dataframe
+
+
+stdcols = ["age","restbp","chol","thalach","oldpeak"]
+nrmcols = ["ca"]
+stddfx   = dfx.copy()
+stddfx[stdcols] = stddfx[stdcols].apply(lambda x: (x-x.mean())/x.std())
+stddfx[nrmcols] = stddfx[nrmcols].apply(lambda x: (x-x.mean())/(x.max()-x.min()))
+
+new_columns_2 = new_columns_1[:9] + new_columns_1[10:]
+new_columns_2.insert(0,new_columns_1[9])
+stddfx = stddfx.reindex(columns=new_columns_2)
+
+print("###########################################################")
+print stddfx.head()
+
+
+
+#stddfx.fillna(0, inplace=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Compute the predictions for the test data sets.
+more_columns = ["sex", "thalach", "oldpeak", "ca", "cp_1", "cp_2", "cp_3", "thal_7"]
+test_dfx    = stddfx[more_columns]
+#test_dfx.fillna(0, inplace=True)
+
+print test_dfx.head()
+
+hdx_pred  = result1.predict(test_dfx,linear=False)
+
 file = open("/home/sukriti/Downloads/High_Risk_Classify.txt", "w")
-file.write("0")
+file.write(str(hdx_pred[0]))
 file.close()
 
-
-
-print hd1_pred
-
+hd1_pred  = result1.predict(dfp1c,linear=False)
 hd2_pred  = result2.predict(dfp2c,linear=False)
 hd3_pred  = result3.predict(dfp3c,linear=False)
 
@@ -1024,16 +1101,16 @@ rl2_err  = np.std(rl2,ddof=1)/np.sqrt(nparts)
 
 # Print out results
 print(' ')
-print('Accuracy:                [%5.3f, %5.3f, %5.3f]; average= %5.3f +/- %5.3f' 
-      %(acc[0],acc[1],acc[2],acc_mean,acc_err))
-print('Precision on disease:    [%5.3f, %5.3f, %5.3f]; average= %5.3f +/- %5.3f' 
-      %(pr1[0],pr1[1],pr1[2],pr1_mean,pr1_err))
-print('Precision on no-disease: [%5.3f, %5.3f, %5.3f]; average= %5.3f +/- %5.3f' 
-      %(pr2[0],pr2[1],pr2[2],pr2_mean,pr2_err))
-print('Recall on disease:       [%5.3f, %5.3f, %5.3f]; average= %5.3f +/- %5.3f' 
-      %(rl1[0],rl1[1],rl1[2],rl1_mean,rl1_err))
-print('Recall on no-disease:    [%5.3f, %5.3f, %5.3f]; average= %5.3f +/- %5.3f' 
-      %(rl2[0],rl2[1],rl2[2],rl2_mean,rl2_err))
+print('Accuracy:                [%5.3f]'
+      %(acc[0]))
+print('Precision on disease:    [%5.3f]' 
+      %(pr1[0]))
+print('Precision on no-disease: [%5.3f]' 
+      %(pr2[0]))
+print('Recall on disease:       [%5.3f]' 
+      %(rl1[0]))
+print('Recall on no-disease:    [%5.3f]' 
+      %(rl2[0]))
 
 
 # ### Gaussian Naive Bayes
