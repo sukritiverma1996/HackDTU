@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+body, html {
+  height: 100%;
+  margin: 0;
+  font: 400 15px/1.8 "Lato", sans-serif;
+  color: #777;
+}
+
+.bgimg-1, .bgimg-2, .bgimg-3 {
+  position: relative;
+  opacity: 0.65;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+.bgimg-1 {
+  background-image: url("healthyheart.jpg");
+  min-height: 100%;
+}
+
+.bgimg-2 {
+  background-image: url("healthyheart.jpg");
+  min-height: 400px;
+}
+
+.bgimg-3 {
+  background-image: url("healthyheart.jpg");
+  min-height: 400px;
+}
+
+.caption {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  color: #000;
+}
+
+.caption span.border {
+  background-color: #111;
+  color: #fff;
+  padding: 18px;
+  font-size: 25px;
+  letter-spacing: 10px;
+}
+
+h3 {
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  font: 20px "Lato", sans-serif;
+  color: #111;
+}
+
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1024px) {
+    .bgimg-1, .bgimg-2, .bgimg-3 {
+        background-attachment: scroll;
+    }
+}
+label {
+width:300px;
+float:left;
+}
+/* Style the tab */
+div.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+div.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+div.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+div.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+input[type=submit] {
+  padding: 10px 20px;
+  font-size: 18px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #F23811;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+input[type=submit]:hover {background-color: #FF512D}
+
+input[type=submit]:active {
+  background-color: #FF512D;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+</style>
+</head>
+<body>
+<div class="bgimg-1">
+  <div class="caption">
+    <span class="border">TWO FOLD CARDIAC ASSIST</span>
+  </div>
+</div>
+
+
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">Patient Information</button>
+  <button class="tablinks" onclick="openCity(event, 'Paris')">Heartbeat Upload</button>
+</div>
+
+<div id="London" class="tabcontent">
+ 
+<div style="color: #777;background-color:white;text-align:center;padding:50px 80px;text-align: justify;">
+  
+  <form onsubmit="newFunc(this['age'].value, this['Sex'].value, this['Cp'].value, this['trestbps'].value, this['chol'].value, this['fbs'].value, this['restecg'].value, this['thalach'].value, this['exang'].value, this['oldpeak'].value, this['slope'].value, this['ca'].value, this['thal'].value, this['num'].value)">
+  <label>Age:</label>
+
+  <input type="text" name="age">
+  <br>
+  <label>Sex:</label>
+  <select name="Sex">
+  <option value="1">Male</option>
+  <option value="0">Female</option>
+</select>
+  <br>
+<label>Chest Pain Type:</label>
+<select name="Cp">
+  <option value="1">Typical Angina</option>
+  <option value="2">Atypical Angina</option>
+  <option value="3">Non-Anginal pain</option>
+  <option value="4">Asymptomatic</option>
+</select><br>
+<label>Resting Blood Pressure (in mm hg):</label>
+<input type="text" name="trestbps">
+  <br>
+<label>Cholestrol (in mg/dl):</label>
+<input type="text" name="chol">
+  <br>
+ <label>Fasting Blood Sugar > 120 mg/dl:</label> <select name="fbs">
+  <option value="1">Yes</option>
+  <option value="0">No</option>
+</select>
+<br>
+<label>Resting Electrocardiographic Results:</label>
+<select name="restecg">
+  <option value="0">Normal</option>
+  <option value="1">Having ST-T wave abnormality</option>
+  <option value="2">Showing probable or definite left ventricular hypertrophy</option>
+</select><br>
+<label>Maximum HeartRate:</label>
+<input type="text" name="thalach">
+  <br>
+<label>Exercise Induced Angina:</label><select name="exang">
+  <option value="1">Yes</option>
+  <option value="0">No</option>
+</select>
+<br>
+<label>ST depression:</label>
+<input type="text" name="oldpeak">
+  <br>
+<label>Slope of the Peak exercise ST segment:</label><select name="slope">
+  <option value="1">Upsloping</option>
+  <option value="2">Flat</option>
+  <option value="3">Downsloping</option>
+</select><br>
+<label>Number of Major vessels (0-3):</label>
+<input type="text" name="ca">
+  <br>
+<label>Defect:</label>
+<select name="thal">
+  <option value="3">Normal</option>
+  <option value="6">Fixed defect</option>
+  <option value="7">Reversible defect</option>
+</select><br>
+<label>Diagnosis of heart disease:</label>
+<select name="num">
+  <option value="0">less than 50% diameter narrowing</option>
+  <option value="1">greater than 50% diameter narrowing</option>
+</select><br><br>
+  <input type="submit" value="Submit" >
+  
+</form> 
+
+</div>
+
+<div class="bgimg-2">
+  <div class="caption">
+    <span class="border" style="background-color:transparent;font-size:25px;color: #f7f7f7;">LESS HEIGHT</span>
+  </div>
+</div>
+
+<div id="spanText">aa</div>
+<script type="text/javascript">
+  var newFunc = function(a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14){
+    console.log(a1);
+    console.log("hiasa");
+    var str = a1 + "," + a2 + "," + a3 +  "," + a4 + "," +  a5 + "," +  a6 + "," +  a7 + "," +  a8 + "," +  a9 + "," +  a10 + "," +  a11 + "," +  a12 + "," +  a13 + "," +  a14;
+    console.log(str);
+document.getElementById("spanText").innerHTML = a1;
+  download("Test_Data.csv",str);
+}
+  var  myFunc = function(){
+    
+    document.getElementById("spanText").innerHTML ="text";
+    console.log("hi");
+
+   
+  }
+</script>
+<script language="Javascript" >
+function download(filename, text) {
+  var pom = document.createElement('a');
+  pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + 
+
+encodeURIComponent(text));
+  pom.setAttribute('download', filename);
+
+  pom.style.display = 'none';
+  document.body.appendChild(pom);
+
+  pom.click();
+
+  document.body.removeChild(pom);
+}
+</script>
+
+</div>
+
+<div id="Paris" class="tabcontent">
+
+<div style="color: #777;background-color:white;text-align:center;padding:50px 80px;text-align: justify;">
+  
+  <form>
+  <input type="file" name="heartbeat" accept="audio/*">
+  <input type="submit">
+</form>
+
+</div>
+
+<div class="bgimg-2">
+  <div class="caption">
+    <span class="border" style="background-color:transparent;font-size:25px;color: #f7f7f7;">LESS HEIGHT</span>
+  </div>
+</div>
+
+
+</div>
+
+<script>
+function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+document.getElementById("defaultOpen").click();
+</script>
+     
+</body>
+</html> 
+
