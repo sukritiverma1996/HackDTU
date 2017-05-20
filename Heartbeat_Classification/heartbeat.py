@@ -6,10 +6,6 @@ acc1 = aT.featureAndTrain(["artifact","extrahls","murmur","normal"], 1.0, 1.0, a
 acc2 = aT.featureAndTrain(["artifact","extrahls","murmur","normal"], 1.0, 1.0, aT.shortTermWindow, aT.shortTermStep, "knn", "knnMusicGenre3", True)
 acc3 = aT.featureAndTrain(["artifact","extrahls","murmur","normal"], 1.0, 1.0, aT.shortTermWindow, aT.shortTermStep, "gradientboosting", "gbMusicGenre3", True)
 acc4 = aT.featureAndTrain(["artifact","extrahls","murmur","normal"], 1.0, 1.0, aT.shortTermWindow, aT.shortTermStep, "randomforest", "rfMusicGenre3", True)
-#from pyAudioAnalysis import audioAnalysis as aA 
-#predicted = aA.classifyFolderWrapper("set_a", "svm", "svmMusicGenre3")
-#y_test=
-#print predicted
 fig, axes = plt.subplots( nrows=1, ncols=1, figsize=(10,20) )
 plt.subplots_adjust( wspace=0.20, hspace=0.20, top=0.97 )
 plt.suptitle("Classifier Comparisons", fontsize=20)
